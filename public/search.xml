@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[使用github免费搭建程序员博客]]></title>
+    <url>%2F2018%2F03%2F02%2F%E4%BD%BF%E7%94%A8github%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[准备工作以windows为例：github账号:https://github.com/node.js软件:http://nodejs.cn/download/git软件:https://git-scm.com/ 博客搭建github新建仓库仓库名为 用户名.github.io（例如zhuliangxuan.github.io） 软件安装确认git安装（一路安装，略）node.js安装（一路安装，略）Hexo安装（需git和node.js安装完成）新建一个文件夹用于作为博客目录，进入该目录，打开git bush命令窗口12345678# Hexo客户端安装npm i -g hexo# Hexo服务端安装npm i hexo-server# Hexo部署插件安装npm install hexo-deployer-git --save 软件确认查看git版本123git version//git version 2.16.1.windows.2 查看node版本123node -v//v8.9.3 查看hexo版本123456789101112131415161718hexo -v//hexo: 3.6.0hexo-cli: 1.1.0os: Windows_NT 10.0.16299 win32 x64http_parser: 2.7.0node: 8.9.3v8: 6.1.534.48uv: 1.15.0zlib: 1.2.11ares: 1.10.1-DEVmodules: 57nghttp2: 1.25.0openssl: 1.0.2nicu: 59.1unicode: 9.0cldr: 31.0.1tz: 2017b 创建ssh key添加到github生成ssh key1ssh-keygen -t rsa -C "zhuliangxuan@zstax.com" 将生成的id_rsa.pub用notepad++打开，复制其中的内容 将key添加到github登录github，点击settings-SSH keys and GPG keys，添加一个ssh key，将复制的内容粘贴过来 验证ssh keygit命令行1234ssh -T git@github.com//Hi zhuliangxuan! You've successfully authenticated, but GitHub does not provide shell access.//表示连接成功 部署初始化1hexo init 部署123hexo cleanhexo generatehexo deploy 写博客方式一：导入完成的md博客文件，复制粘贴到目录source/_posts中方式二：使用命令 hexo new post “文章名字” 就可新建文章啦，建立好的文章在 source/_posts 中，你可以用markdown语法编辑内容就可以完成之后，重新使用部署命令发布 访问访问https://yourname.github.io，进行访问。例如https://zhuliangxuan.github.io/ 主题与优化]]></content>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
+</search>

@@ -6,8 +6,8 @@
 title: 编程知识小记
 subtitle: Java
 description: 记录编程成长点点滴滴2018-
-author: John Doe
-language: zh-CN
+author: 朱良选
+language: zh-Hans
 timezone:
 
 # URL
@@ -39,8 +39,8 @@ relative_link: false
 future: true
 highlight:
   enable: true
+  auto_detect: true
   line_number: true
-  auto_detect: false
   tab_replace:
   
 # Home page setting
@@ -72,7 +72,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: maupassant
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -80,3 +80,9 @@ deploy:
   type: git
   repo: ssh://git@github.com/zhuliangxuan/zhuliangxuan.github.io
   branch: master
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
