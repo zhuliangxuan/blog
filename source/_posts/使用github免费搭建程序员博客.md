@@ -12,6 +12,7 @@ comments: true
 github账号:[https://github.com/](https://github.com/)<br/>
 node.js软件:[http://nodejs.cn/download/](http://nodejs.cn/download/)<br/>
 git软件:[https://git-scm.com/](https://git-scm.com/)<br/>
+<!--more-->
 # 博客搭建
 ## github新建仓库
 仓库名为 用户名.github.io（例如zhuliangxuan.github.io）
