@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webservice," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="idea开发webservice服务端SSM集成引入依赖pom.xml123456789101112131415161718192021&amp;lt;!--cxf webservice依赖--&amp;gt;&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.apache.cxf&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;cxf-rt-frontend-jaxw">
+<meta name="keywords" content="webservice">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webservice学习一，服务端开发">
+<meta property="og:url" content="http://yoursite.com/2018/03/04/webservice服务端开发/index.html">
+<meta property="og:site_name" content="编程知识小记">
+<meta property="og:description" content="idea开发webservice服务端SSM集成引入依赖pom.xml123456789101112131415161718192021&amp;lt;!--cxf webservice依赖--&amp;gt;&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.apache.cxf&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;cxf-rt-frontend-jaxw">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-07T05:23:06.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webservice学习一，服务端开发">
+<meta name="twitter:description" content="idea开发webservice服务端SSM集成引入依赖pom.xml123456789101112131415161718192021&amp;lt;!--cxf webservice依赖--&amp;gt;&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.apache.cxf&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;cxf-rt-frontend-jaxw">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/04/webservice服务端开发/"/>
+
+
+
+
+
+  <title>webservice学习一，服务端开发 | 编程知识小记</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57b7ca140323412e5aaeb83047a37b7d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">编程知识小记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/04/webservice服务端开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="朱良选">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程知识小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webservice学习一，服务端开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T20:37:16+08:00">
+                2018-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webservice/" itemprop="url" rel="index">
+                    <span itemprop="name">webservice</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="idea开发webservice服务端"><a href="#idea开发webservice服务端" class="headerlink" title="idea开发webservice服务端"></a>idea开发webservice服务端</h1><h1 id="SSM集成"><a href="#SSM集成" class="headerlink" title="SSM集成"></a>SSM集成</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--cxf webservice依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-frontend-jaxws<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-transports-http<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-ws-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.cxf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cxf-rt-transports-http-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="编写webservice服务接口及实现类"><a href="#编写webservice服务接口及实现类" class="headerlink" title="编写webservice服务接口及实现类"></a>编写webservice服务接口及实现类</h2><p>CxfDemo.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.jws.WebMethod;</span><br><span class="line"><span class="keyword">import</span> javax.jws.WebParam;</span><br><span class="line"><span class="keyword">import</span> javax.jws.WebService;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Project Name:riskManage</span></span><br><span class="line"><span class="comment"> * Package Name:com.zstimes.riskManage.boot.service</span></span><br><span class="line"><span class="comment"> * File Name:CxfDemo</span></span><br><span class="line"><span class="comment"> * Date:2018/2/7 0007 9:57</span></span><br><span class="line"><span class="comment"> * company: zstax</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2018, zhuliangxuan@zstax.com All Rights Reserved.</span></span><br><span class="line"><span class="comment"> * Description:webservice测试接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebService</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CxfDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@WebMethod</span></span><br><span class="line">    <span class="function">String   <span class="title">helloWord</span><span class="params">(@WebParam(name = <span class="string">"userName"</span>)</span> String arg)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>CxfDemoImpl.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Project Name:riskManage</span></span><br><span class="line"><span class="comment"> * Package Name:com.zstimes.riskManage.boot.service.impl</span></span><br><span class="line"><span class="comment"> * File Name:CxfDemoImpl</span></span><br><span class="line"><span class="comment"> * Date:2018/2/7 0007 10:02</span></span><br><span class="line"><span class="comment"> * company: zstax</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2018, zhuliangxuan@zstax.com All Rights Reserved.</span></span><br><span class="line"><span class="comment"> * Description:接口实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CxfDemoImpl</span> <span class="keyword">implements</span> <span class="title">CxfDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloWord</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello "</span>+arg+<span class="string">"!!!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>DemoServerPasswordCallback.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Project Name:riskManage</span></span><br><span class="line"><span class="comment"> * Package Name:com.zstimes.riskManage.webservice</span></span><br><span class="line"><span class="comment"> * File Name:DemoServerPasswordCallback</span></span><br><span class="line"><span class="comment"> * Date:2018/2/7 0007 14:19</span></span><br><span class="line"><span class="comment"> * company: zstax</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2018, zhuliangxuan@zstax.com All Rights Reserved.</span></span><br><span class="line"><span class="comment"> * Description:添加服务端身份验证</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.wss4j.common.ext.WSPasswordCallback;</span><br><span class="line"><span class="keyword">import</span> javax.security.auth.callback.Callback;</span><br><span class="line"><span class="keyword">import</span> javax.security.auth.callback.CallbackHandler;</span><br><span class="line"><span class="keyword">import</span> javax.security.auth.callback.UnsupportedCallbackException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoServerPasswordCallback</span> <span class="keyword">implements</span> <span class="title">CallbackHandler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Callback[] callbacks)</span> <span class="keyword">throws</span> IOException,</span></span><br><span class="line"><span class="function">            UnsupportedCallbackException </span>&#123;</span><br><span class="line">        WSPasswordCallback pc = (WSPasswordCallback) callbacks[<span class="number">0</span>];</span><br><span class="line">        String pw = pc.getPassword();</span><br><span class="line">        String idf = pc.getIdentifier();</span><br><span class="line">        <span class="comment">//特别注意的是 这里的pw肯是null, 无论你password是否传值。cxf 2.4之后，</span></span><br><span class="line">        <span class="comment">//密码的比较是框架自动帮我们完成，因此不需要我们获取传递过来的密码，如果你</span></span><br><span class="line">        <span class="comment">//一定要查看密码的话,可以通过new String(pc.getKey())获取。在该回调函数中</span></span><br><span class="line">        <span class="comment">//我们只需要使用 idf 从数据库中查询出密码，使用pc.setPassword()方法将密码设</span></span><br><span class="line">        <span class="comment">//置进去,框架获取的的密码后会进行比较，并通过抛出异常的方式提示验证出错。</span></span><br><span class="line">        System.out.println(<span class="string">"密码是: "</span> + pw);</span><br><span class="line">        System.out.println(<span class="string">"身份是: "</span> + idf);</span><br><span class="line">        <span class="comment">//根据idf 我们从数据中查询出的密码 假如是 "abc"</span></span><br><span class="line">        pc.setPassword(<span class="string">"ZDg3NDA5NjUyYmNk"</span>);</span><br><span class="line">        pc.setIdentifier(<span class="string">"admin"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="编写spring-cxf配置文件"><a href="#编写spring-cxf配置文件" class="headerlink" title="编写spring-cxf配置文件"></a>编写spring-cxf配置文件</h2><p>spring-cxf-service.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:jaxws</span>=<span class="string">"http://cxf.apache.org/jaxws"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">" http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引cxf的一些核心配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"classpath:META-INF/cxf/cxf.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"classpath:META-INF/cxf/cxf-servlet.xml"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cxfDemoImple"</span> <span class="attr">class</span>=<span class="string">"com.zstimes.riskManage.webservice.CxfDemoImpl"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"DemoServerPasswordCallback"</span>  <span class="attr">class</span>=<span class="string">"com.zstimes.riskManage.webservice.DemoServerPasswordCallback"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxws:endpoint</span> <span class="attr">id</span>=<span class="string">"hello"</span> <span class="attr">implementor</span>=<span class="string">"#cxfDemoImple"</span> <span class="attr">address</span>=<span class="string">"/helloWorld"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jaxws:inInterceptors</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"action"</span> <span class="attr">value</span>=<span class="string">"UsernameToken"</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"passwordType"</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">value</span>=<span class="string">"PasswordText"</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"FHDClient"</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"passwordCallbackRef"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"DemoServerPasswordCallback"</span> /&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jaxws:inInterceptors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jaxws:endpoint</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="shiro配置-webservice-匿名访问"><a href="#shiro配置-webservice-匿名访问" class="headerlink" title="shiro配置/webservice/** 匿名访问"></a>shiro配置/webservice/** 匿名访问</h2><h2 id="web-xml配置"><a href="#web-xml配置" class="headerlink" title="web.xml配置"></a>web.xml配置</h2><p>web.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">version</span>=<span class="string">"3.0"</span> <span class="attr">metadata-complete</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">display-name</span>&gt;</span>riskManageWeb<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>log4jConfiguration<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:log4j2.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>webAppRootKey<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>riskManageWeb.root<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 编码过滤器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">async-supported</span>&gt;</span>true<span class="tag">&lt;/<span class="name">async-supported</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>forceEncoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>encodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span></span><br><span class="line">			classpath*:spring/spring-ckts-base.xml,</span><br><span class="line">			classpath*:spring/spring-shiro-config.xml,</span><br><span class="line">			classpath*:spring/spring-cxf-service.xml</span><br><span class="line">		<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- shiro 安全过滤器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>shiroFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>targetFilterLifecycle<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>shiroFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Spring监听器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 防止Spring内存溢出监听器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.util.IntrospectorCleanupListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Spring MVC servlet --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SpringMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring/spring-ckts-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">async-supported</span>&gt;</span>true<span class="tag">&lt;/<span class="name">async-supported</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SpringMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--webservice servlet--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CXFServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.cxf.transport.servlet.CXFServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CXFServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/webservice/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 配置session超时时间，单位分钟 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>30<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">welcome-file-list</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>/index.jsp<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">welcome-file-list</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 出错页面定义 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">exception-type</span>&gt;</span>java.lang.Throwable<span class="tag">&lt;/<span class="name">exception-type</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/500.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 找不到页错误转向 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/404.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 系统内部错误转向 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>500<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/500.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">error-code</span>&gt;</span>403<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">location</span>&gt;</span>/error/403.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>访问<code>http://zssd.com:7201/riskManageWeb/webservice/helloWorld?wsdl</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">wsdl:definitions</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:wsdl</span>=<span class="string">"http://schemas.xmlsoap.org/wsdl/"</span> <span class="attr">xmlns:tns</span>=<span class="string">"http://webservice.riskManage.zstimes.com/"</span> <span class="attr">xmlns:soap</span>=<span class="string">"http://schemas.xmlsoap.org/wsdl/soap/"</span> <span class="attr">xmlns:ns1</span>=<span class="string">"http://schemas.xmlsoap.org/soap/http"</span> <span class="attr">name</span>=<span class="string">"CxfDemoImplService"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://webservice.riskManage.zstimes.com/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:types</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:schema</span> <span class="attr">xmlns:xs</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:tns</span>=<span class="string">"http://webservice.riskManage.zstimes.com/"</span> <span class="attr">elementFormDefault</span>=<span class="string">"unqualified"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://webservice.riskManage.zstimes.com/"</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"helloWord"</span> <span class="attr">type</span>=<span class="string">"tns:helloWord"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">name</span>=<span class="string">"helloWordResponse"</span> <span class="attr">type</span>=<span class="string">"tns:helloWordResponse"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:complexType</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"userName"</span> <span class="attr">type</span>=<span class="string">"xs:string"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:complexType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:complexType</span> <span class="attr">name</span>=<span class="string">"helloWordResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xs:element</span> <span class="attr">minOccurs</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"return"</span> <span class="attr">type</span>=<span class="string">"xs:string"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:sequence</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:complexType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xs:schema</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:types</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:message</span> <span class="attr">name</span>=<span class="string">"helloWordResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:part</span> <span class="attr">element</span>=<span class="string">"tns:helloWordResponse"</span> <span class="attr">name</span>=<span class="string">"parameters"</span>&gt;</span><span class="tag">&lt;/<span class="name">wsdl:part</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:message</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:part</span> <span class="attr">element</span>=<span class="string">"tns:helloWord"</span> <span class="attr">name</span>=<span class="string">"parameters"</span>&gt;</span><span class="tag">&lt;/<span class="name">wsdl:part</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:portType</span> <span class="attr">name</span>=<span class="string">"CxfDemo"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:operation</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:input</span> <span class="attr">message</span>=<span class="string">"tns:helloWord"</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span><span class="tag">&lt;/<span class="name">wsdl:input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:output</span> <span class="attr">message</span>=<span class="string">"tns:helloWordResponse"</span> <span class="attr">name</span>=<span class="string">"helloWordResponse"</span>&gt;</span><span class="tag">&lt;/<span class="name">wsdl:output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:portType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:binding</span> <span class="attr">name</span>=<span class="string">"CxfDemoImplServiceSoapBinding"</span> <span class="attr">type</span>=<span class="string">"tns:CxfDemo"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:binding</span> <span class="attr">style</span>=<span class="string">"document"</span> <span class="attr">transport</span>=<span class="string">"http://schemas.xmlsoap.org/soap/http"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:operation</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:operation</span> <span class="attr">soapAction</span>=<span class="string">""</span> <span class="attr">style</span>=<span class="string">"document"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:input</span> <span class="attr">name</span>=<span class="string">"helloWord"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:body</span> <span class="attr">use</span>=<span class="string">"literal"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:output</span> <span class="attr">name</span>=<span class="string">"helloWordResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:body</span> <span class="attr">use</span>=<span class="string">"literal"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:binding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:service</span> <span class="attr">name</span>=<span class="string">"CxfDemoImplService"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wsdl:port</span> <span class="attr">binding</span>=<span class="string">"tns:CxfDemoImplServiceSoapBinding"</span> <span class="attr">name</span>=<span class="string">"CxfDemoImplPort"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:address</span> <span class="attr">location</span>=<span class="string">"http://zssd.com:7201/riskManageWeb/webservice/helloWorld"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:port</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:service</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">wsdl:definitions</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="springboot集成"><a href="#springboot集成" class="headerlink" title="springboot集成"></a>springboot集成</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="朱良选 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webservice/" rel="tag"># webservice</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/04/webservice客户端开发/" rel="next" title="webservice学习二，客户端开发">
+                <i class="fa fa-chevron-left"></i> webservice学习二，客户端开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/05/soapui测试webservice/" rel="prev" title="webservice学习三，soapui测试">
+                webservice学习三，soapui测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDU0NC8xMTA4Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="朱良选" />
+            
+              <p class="site-author-name" itemprop="name">朱良选</p>
+              <p class="site-description motion-element" itemprop="description">记录编程成长点点滴滴2018-</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhuliangxuan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://itmuch.com/" target="_blank" title="博客-周立Spring Cloud">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客-周立Spring Cloud</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59b75f555188257e82675aa3/posts" target="_blank" title="掘金-Guo_1_9">
+                      
+                        <i class="fa fa-fw fa-globe"></i>掘金-Guo_1_9</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.cnblogs.com/ityouknow/category/914493.html" target="_blank" title="博客园-纯洁的微笑">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园-纯洁的微笑</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#idea开发webservice服务端"><span class="nav-number">1.</span> <span class="nav-text">idea开发webservice服务端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSM集成"><span class="nav-number">2.</span> <span class="nav-text">SSM集成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入依赖"><span class="nav-number">2.1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写webservice服务接口及实现类"><span class="nav-number">2.2.</span> <span class="nav-text">编写webservice服务接口及实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写spring-cxf配置文件"><span class="nav-number">2.3.</span> <span class="nav-text">编写spring-cxf配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shiro配置-webservice-匿名访问"><span class="nav-number">2.4.</span> <span class="nav-text">shiro配置/webservice/** 匿名访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-xml配置"><span class="nav-number">2.5.</span> <span class="nav-text">web.xml配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">2.6.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#springboot集成"><span class="nav-number">3.</span> <span class="nav-text">springboot集成</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱良选</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
